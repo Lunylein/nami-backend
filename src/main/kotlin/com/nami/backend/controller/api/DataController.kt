@@ -4,6 +4,7 @@ import com.nami.backend.model.Serie
 import com.nami.backend.service.DataService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.time.LocalDateTime
@@ -19,13 +20,13 @@ class DataController {
                 this.dataService = dataService
         }*/
         @GetMapping(path = ["/{serie}"])
-        fun series (serie: String): List<Serie> {
+        fun series (@PathVariable("serie") serie: String): List<Serie> {
                 val list = mutableListOf<Serie>()
-                list.add(1, Serie("f1", "url", LocalDateTime.now()))
-                list.add(2, Serie("f1", "url1", LocalDateTime.now()))
-                list.add(3, Serie("f1", "url2", LocalDateTime.now()))
-                list.add(4, Serie("f1", "url3", LocalDateTime.now()))
-                list.add(5, Serie("f1", "url4", LocalDateTime.now()))
+                list.add(Serie("f1", "url", LocalDateTime.now()))
+                list.add(Serie("f1", "url1", LocalDateTime.now()))
+                list.add(Serie("f1", "url2", LocalDateTime.now()))
+                list.add(Serie("f1", "url3", LocalDateTime.now()))
+                list.add(Serie("f1", "url4", LocalDateTime.now()))
                 return list.filter { it.series == serie };
         }
 
