@@ -5,8 +5,14 @@ plugins {
 	id("io.spring.dependency-management") version "1.0.9.RELEASE"
 	kotlin("jvm") version "1.3.72"
 	kotlin("plugin.spring") version "1.3.72"
+	kotlin("plugin.noarg") version "1.3.72"
 }
-
+apply{
+	plugin("kotlin")
+	plugin("kotlin-spring")
+	plugin("kotlin-jpa")
+	plugin("kotlin-noarg")
+}
 val gitVersion: String? = "git rev-list HEAD --count".runCommand(file("$rootDir"))
 
 group = "com.nami"
@@ -15,8 +21,22 @@ java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
 	mavenCentral()
+	jcenter()
+	maven("https://dl.bintray.com/kotlin/kotlin-eap")
 }
-
+buildscript {
+	dependencies {
+		classpath(kotlin("gradle-plugin", "1.3.72"))
+		classpath(kotlin("allopen", "1.3.72"))
+		classpath(kotlin("noarg", "1.3.72"))
+		classpath("org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:1.3.72")
+	}
+}
+allOpen {
+	annotation("javax.persistence.Entity")
+	annotation("javax.persistence.MappedSuperclass")
+	annotation("javax.persistence.Embeddable")
+}
 dependencies {
 	//implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
 	//implementation("org.springframework.boot:spring-boot-starter-security")
@@ -24,6 +44,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.springframework.boot:spring-boot-starter-jdbc")
+
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("com.squareup.retrofit2:retrofit:2.3.0")
@@ -37,7 +58,6 @@ dependencies {
 	}
 	//testImplementation("org.springframework.security:spring-security-test")
 }
-
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
