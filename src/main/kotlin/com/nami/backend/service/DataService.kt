@@ -1,12 +1,8 @@
 package com.nami.backend.service
 
-import com.nami.backend.dao.SerieDao
 import com.nami.backend.model.Serie
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
-import org.springframework.web.bind.annotation.PathVariable
 import java.time.LocalDateTime
 
 @Service
