@@ -7,8 +7,10 @@ plugins {
 	kotlin("plugin.spring") version "1.3.72"
 }
 
+val gitVersion: String? = "git rev-list HEAD --count".runCommand(file("$rootDir"))
+
 group = "com.nami"
-version = "0.0.1-SNAPSHOT"
+version = "0.1-$gitVersion"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
@@ -44,5 +46,25 @@ tasks.withType<KotlinCompile> {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
 		jvmTarget = "1.8"
+	}
+}
+
+// ******
+// Utility methods
+// ******
+fun String.runCommand(workingDir: File): String? {
+	return try {
+		val parts = this.split("\\s".toRegex())
+		val proc = ProcessBuilder(*parts.toTypedArray())
+				.directory(workingDir)
+				.redirectOutput(ProcessBuilder.Redirect.PIPE)
+				.redirectError(ProcessBuilder.Redirect.PIPE)
+				.start()
+
+		proc.waitFor(1, TimeUnit.SECONDS)
+		proc.inputStream.bufferedReader().readLine().trim()
+	} catch(e: java.io.IOException) {
+		e.printStackTrace()
+		null
 	}
 }
