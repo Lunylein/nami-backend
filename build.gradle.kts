@@ -9,7 +9,7 @@ plugins {
 	kotlin("plugin.spring") version kotlinVersion
 }
 
-val kotlinVersion = project.property("kotlinVersion")
+val kotlinVersion:String by project
 val gitVersion: String? = "git rev-list HEAD --count".runCommand(file("$rootDir"))
 
 group = "com.nami"
@@ -17,7 +17,7 @@ version = "0.1-$gitVersion"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 logger.lifecycle("Versions: project <$version>, java <${System.getProperty("java.version")}>, " +
-		"kotlin <${project.property("kotlinVersion")}>, " +
+		"kotlin <$kotlinVersion>, " +
 		"gradle <${project.gradle.gradleVersion}>, groovy <${groovy.lang.GroovySystem.getVersion()}>")
 
 repositories {
@@ -27,23 +27,21 @@ repositories {
 }
 
 dependencies {
-	//implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
-	//implementation("org.springframework.boot:spring-boot-starter-security")
-	implementation("org.springframework.boot:spring-boot-starter-validation")
+	// Spring Boot Core
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.springframework.boot:spring-boot-starter-jdbc")
+	implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
+	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-	runtimeOnly("org.postgresql:postgresql")
+	// Postgres
+	runtime("org.postgresql:postgresql")
+
+	// Testing Core
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
+		exclude(group = "junit", module = "junit")
 	}
-	//testImplementation("org.springframework.security:spring-security-test")
-}
-tasks.withType<Test> {
-	useJUnitPlatform()
 }
 
 tasks.withType<KotlinCompile> {
