@@ -4,14 +4,8 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class TestService {
+class TestService (val repository: TestRepository) {
     fun getAll(): List<TestEntity> = listOf()
 
-    fun getById(id: String): TestEntity = TestEntity(
-            id = UUID.randomUUID(),
-            version = 1L,
-            deleted = false,
-            name = "test name",
-            description = "test description"
-    )
+    fun getById(id: String): TestEntity = repository.findById(UUID.fromString(id)).get()
 }
