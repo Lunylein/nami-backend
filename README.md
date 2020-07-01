@@ -21,3 +21,5 @@ In order to execute the previously built image execute the following:
 ```
 docker run -p 8080:8080 nami-backend:latest
 ```
+
+Execute `docker-compose up` to start infrastructure containers
