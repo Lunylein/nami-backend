@@ -29,13 +29,22 @@ repositories {
 dependencies {
 	// Spring Boot Core
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa") {
+		exclude(group = "org.apache.tomcat", module = "tomcat-jdbc")
+	}
 	implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
-	// Postgres
-	runtime("org.postgresql:postgresql")
+	// Database
+	runtimeOnly("org.postgresql:postgresql")
+	implementation("com.zaxxer:HikariCP:2.5.1") {
+		exclude(group = "org.hibernate", module = "hibernate-core")
+	}
+	implementation("org.hibernate:hibernate-hikaricp:5.2.11.Final") {
+		exclude(group = "com.zaxxer", module = "HikariCP")
+		exclude(group = "org.hibernate", module = "hibernate-core")
+	}
 
 	// Testing Core
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
