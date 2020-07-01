@@ -12,7 +12,7 @@ class TestController (private val service: TestService,
                       private val dtoMapper: TestDtoMapper) {
 
     @GetMapping(path = ["/{testId}"])
-    fun series (@PathVariable("testId") testId: String): TestDto {
+    fun test (@PathVariable("testId") testId: String): TestDto {
         return dtoMapper.toDto(service.getById(testId))
     }
 
