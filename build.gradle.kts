@@ -7,6 +7,7 @@ plugins {
 	kotlin("jvm") version kotlinVersion
 	kotlin("plugin.jpa") version kotlinVersion
 	kotlin("plugin.spring") version kotlinVersion
+	id("org.liquibase.gradle") version "2.0.4"
 }
 
 val kotlinVersion:String by project
@@ -45,6 +46,11 @@ dependencies {
 		exclude(group = "com.zaxxer", module = "HikariCP")
 		exclude(group = "org.hibernate", module = "hibernate-core")
 	}
+	implementation("org.liquibase:liquibase-core:3.10.0")
+	liquibaseRuntime("org.liquibase:liquibase-core")
+	liquibaseRuntime("org.liquibase.ext:liquibase-hibernate5:3.8")
+	liquibaseRuntime("org.postgresql:postgresql")
+	liquibaseRuntime("org.springframework.boot:spring-boot:$2.3.1.RELEASE")
 
 	// Testing Core
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
