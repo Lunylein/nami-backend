@@ -16,7 +16,7 @@ class TestController (private val service: TestService,
         return dtoMapper.toDto(service.getById(testId))
     }
 
-    @PutMapping(path = ["/{testId}"])
+    @PostMapping(path = ["/{testId}"])
     fun testput (@PathVariable("testId") testId: String, @NonNull @RequestBody @Validated testDto : TestDto){
         service.save(dtoMapper.toEntity(testDto));
     }
