@@ -1,7 +1,9 @@
 package com.nami.backend.test
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import org.springframework.stereotype.Service
 import java.util.*
+import javax.validation.constraints.NotBlank
 import kotlin.random.Random
 
 @Service
