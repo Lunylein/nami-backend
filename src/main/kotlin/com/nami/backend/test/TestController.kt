@@ -1,10 +1,8 @@
 package com.nami.backend.test
 
 import com.nami.backend.test.dto.TestDto
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import java.util.*
 
 @RestController
 @RequestMapping("api/tests")
@@ -16,4 +14,8 @@ class TestController (private val service: TestService,
         return dtoMapper.toDto(service.getById(testId))
     }
 
+    @PostMapping(path = ["/{testId}"])
+    fun testput (@PathVariable("testId") testId: String){
+        service.save(TestEntity(UUID.fromString(testId), 1, false, "asdasd", "asd"))
+    }
 }
