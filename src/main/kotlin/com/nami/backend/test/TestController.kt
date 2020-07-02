@@ -1,6 +1,8 @@
 package com.nami.backend.test
 
 import com.nami.backend.test.dto.TestDto
+import org.springframework.lang.NonNull
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
@@ -14,8 +16,8 @@ class TestController (private val service: TestService,
         return dtoMapper.toDto(service.getById(testId))
     }
 
-    @PostMapping(path = ["/{testId}"])
-    fun testput (@PathVariable("testId") testId: String){
-        service.save(TestEntity(UUID.fromString(testId), 1, false, "asdasd", "asd"))
+    @PutMapping(path = ["/{testId}"])
+    fun testput (@PathVariable("testId") testId: String, @NonNull @RequestBody @Validated testDto : TestDto){
+        service.save(dtoMapper.toEntity(testDto));
     }
 }
