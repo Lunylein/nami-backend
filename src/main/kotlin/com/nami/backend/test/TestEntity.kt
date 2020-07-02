@@ -3,13 +3,14 @@ package com.nami.backend.test
 import com.nami.backend.common.AbstractEntity
 import java.util.*
 import javax.persistence.Entity
+import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.Table
 
 @Entity(name = "Test")
 @Table(name = "tests")
 class TestEntity(
-        @Id override val id: UUID,
+        @Id @GeneratedValue override var id: UUID? = null,
         override var version: Long,
         override var deleted: Boolean,
         var name: String,

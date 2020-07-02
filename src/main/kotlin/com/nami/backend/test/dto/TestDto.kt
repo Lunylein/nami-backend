@@ -1,7 +1,13 @@
 package com.nami.backend.test.dto
 
-data class TestDto (
+import javax.validation.constraints.Size
+
+data class TestGetDto (
         val id: String,
-        val name: String,
-        val description: String?
+        @get:Size(max = 125, message = "name to long") val name: String,
+        @get:Size(max = 256, message = "description to long") val description: String?
+)
+data class TestPostDto (
+        @get:Size(max = 125, message = "name to long") val name: String,
+        @get:Size(max = 256, message = "description to long") val description: String?
 )
