@@ -17,7 +17,7 @@ class TestController (private val service: TestService,
     }
 
     @PostMapping()
-    fun testPost (@NonNull @RequestBody @Validated testDto : TestPostDto): TestGetDto{
+    fun testPost (@NonNull @RequestBody @Validated testDto : TestPostDto): TestGetDto {
         val testEntity = service.create(testDto.name, testDto.description);
         return dtoMapper.toDto(testEntity)
     }
