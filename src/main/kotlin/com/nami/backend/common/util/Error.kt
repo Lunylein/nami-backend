@@ -10,7 +10,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.time.LocalDate
 
 @ControllerAdvice
-public class SomeExceptionHandler : ResponseEntityExceptionHandler()
+class SomeExceptionHandler : ResponseEntityExceptionHandler()
 {
     override fun handleMethodArgumentNotValid(ex: MethodArgumentNotValidException, headers: HttpHeaders, status: HttpStatus, request: WebRequest): ResponseEntity<Any> {
         val body = mutableMapOf<String, Any>()
