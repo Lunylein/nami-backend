@@ -11,7 +11,7 @@ This is a free time project which supposed to do cool stuff utilising ergast RES
 ## How to build and execute
 
 ### Build and run docker image
-To build docker image execute the following in the project's root directory:
+To build docker image execute the following in the sub-project service directory:
 ```
 docker build --build-arg version_param=0.1-XXX --tag nami-backend:01.XXX --tag nami-backend:latest .
 ```

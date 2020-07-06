@@ -1,11 +1,6 @@
 package com.nami.backend.test
 
-import java.lang.annotation.Documented
-import java.lang.annotation.ElementType
-import java.lang.annotation.ElementType.FIELD
-import java.lang.annotation.RetentionPolicy
 import javax.validation.Constraint
-import javax.validation.Payload
 import kotlin.reflect.KClass
 
 

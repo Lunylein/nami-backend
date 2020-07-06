@@ -1,12 +1,10 @@
 package com.nami.backend
 
 import com.nami.backend.test.dto.TestGetDto
-import com.nami.backend.test.dto.TestPostDto
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import javax.validation.ConstraintViolation
 import javax.validation.Validator
 
 
