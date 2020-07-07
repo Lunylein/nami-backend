@@ -55,9 +55,14 @@ dependencies {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
         exclude(group = "junit", module = "junit")
     }
+    testImplementation("org.spockframework:spock-spring:2.0-M3-groovy-3.0")
     testImplementation("org.spockframework:spock-core:2.0-M3-groovy-3.0")
+    testImplementation("org.junit.platform:junit-platform-commons:1.5.2")
 }
 
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")

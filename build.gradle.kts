@@ -18,7 +18,6 @@ allprojects {
     group = "com.nami.backend"
     project.version = "0.1-$gitVersion"
 }
-
 fun String.runCommand(workingDir: File): String? {
     return try {
         val parts = this.split("\\s".toRegex())
