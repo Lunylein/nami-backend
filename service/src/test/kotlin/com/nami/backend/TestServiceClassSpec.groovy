@@ -7,23 +7,34 @@ import spock.lang.Specification
 import spock.lang.Subject
 
 class TestServiceClassSpec extends Specification{
-    TestRepository testRepository = Mock(TestRepository)
+
+    TestRepository repositoryMock = Mock()
+
     @Subject
-    def sut  = new TestService(testRepository)
+    def sut  = new TestService(repositoryMock)
 
     def "creates new element in repository"(){
         given:
         def id = UUID.randomUUID()
         def name = "someName"
         def description = "someDescription"
-        def testEntity = new TestEntity(id, 0L, false, name, description)
-        testRepository.save() >> testEntity
+        def repoInput = new TestEntity(null, 0, false, name, description)
+        def repoOutput = new TestEntity(id, repoInput.version, repoInput.deleted, name, description)
 
         when:
         def result = sut.create(name, description)
 
         then:
-        1 * testRepository.save(new TestEntity(null, 0L, false, name, description))
-        result == testEntity
+        1 * repositoryMock.save({
+            verifyAll(it, TestEntity) {
+                id == repoOutput.id
+                name == name
+                description == description
+                deleted == repoInput.deleted
+            }
+        }) >> repoOutput
+
+        and:
+        result == repoOutput
      }
 }
